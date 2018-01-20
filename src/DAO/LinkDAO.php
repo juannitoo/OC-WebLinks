@@ -26,6 +26,19 @@ class LinkDAO extends DAO
         return $entities;
     }
 
+    /**  c moi qui rajoute
+     * Returns author name.
+     *
+     * @param integer $id
+     */
+    public function findAuthorName($userId) {
+        $sql = "select user_name from t_user where user_id=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($userId));
+        $userName = $row['user_name'];
+
+        return $userName;
+    }
+
     /**
      * Creates an Link object based on a DB row.
      *
@@ -38,7 +51,7 @@ class LinkDAO extends DAO
         $link->setTitle($row['link_title']);
         $link->setUrl($row['link_url']);
         $userId = $row['user_id'];
-        $link->setName(UserDAO::findName($userId));
+        $link->setName(self::findAuthorName($userId));
         return $link;
     }
 }

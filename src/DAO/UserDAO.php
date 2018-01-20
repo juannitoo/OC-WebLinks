@@ -8,37 +8,23 @@ use WebLinks\Domain\User;
 class UserDAO extends DAO 
 {
     /**
-     * Returns user name.
+     * Returns user details.
      *
-     * @return user name.
+     * @return user details.
      */
-    // public function findName($userId){
-    //     $sql = "select * from t_user where user_id = ?";
-    //     $row = $this->getDb()->fetchAssoc($sql, array($userId)); //et pas fetchAll
-    //     //print_r($row);           
-    //     echo $row['user_name'];
-    //     $userDetails = $this->buildDomainObject($row);
+    public function findUserDetails($userId){
+        $sql = "select * from t_user where user_id = ?";
+        $row = $this->getDb()->fetchAssoc($sql, array($userId)); 
+        $userDetails = $this->buildDomainObject($row);
 
-    //     return $userDetails;
-    // }
-
-    /**  c moi qui rajoute
-     * Returns author name.
-     *
-     * @param integer $id
-     */
-    public function findName($userId) {
-        $sql = "select * from t_user where user_id=?";
-        $row = $this->getDb()->fetchAssoc($sql, array($userId));
-        $userName = $row['user_name'];
-
-        return $userName;
+        return $userDetails;
     }
 
+    
     /**
      * Creates a User object based on a DB row.
      *
-     * @param array $row The DB row containing Link data.
+     * @param array $row The DB row containing User data.
      * @return \WebLinks\Domain\User
      */
     protected function buildDomainObject($row) {
