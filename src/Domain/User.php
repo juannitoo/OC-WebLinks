@@ -42,7 +42,7 @@ class User
     /**
      * Associated link.
      *
-     * @var \weblinks\Domain\Link
+     * @var \WebLinks\Domain\Link
      */
     private $link;
 
@@ -84,6 +84,10 @@ class User
 
     public function setRole($role) {
         $this->role = $role;
+    }
+
+    public function getLink() {
+        return $this->link;
     }
 
     public function setLink(Link $link) {

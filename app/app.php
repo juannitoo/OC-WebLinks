@@ -18,3 +18,7 @@ $app['dao.link'] = $app->share(function ($app) {
     $linkDAO = new WebLinks\DAO\LinkDAO($app['db']);
     return $linkDAO;
 });
+// $app['dao.user'] = $app->share(function ($app) {
+//     $userDAO = new WebLinks\DAO\UserDAO($app['db']);
+//     return $userDAO;
+// });

@@ -4,8 +4,10 @@ namespace WebLinks\DAO;
 
 use WebLinks\Domain\Link;
 
-class LinkDAO extends DAO 
-{
+use WebLinks\DAO\UserDAO;
+
+class LinkDAO extends DAO
+{   
     /**
      * Returns a list of all links, sorted by id.
      *
@@ -18,7 +20,7 @@ class LinkDAO extends DAO
         // Convert query result to an array of domain objects
         $entities = array();
         foreach ($result as $row) {
-            $id = $row['link_id'];
+            $id = $row['link_id'];            
             $entities[$id] = $this->buildDomainObject($row);
         }
         return $entities;
@@ -35,7 +37,8 @@ class LinkDAO extends DAO
         $link->setId($row['link_id']);
         $link->setTitle($row['link_title']);
         $link->setUrl($row['link_url']);
-        
+        $userId = $row['user_id'];
+        $link->setName(UserDAO::findName($userId));
         return $link;
     }
 }

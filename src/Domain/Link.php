@@ -25,6 +25,13 @@ class Link
      */
     private $url;
 
+    /**
+     * author name.
+     *
+     * @var string
+     */
+    private $name;
+
     public function getId() {
         return $this->id;
     }
@@ -47,5 +54,13 @@ class Link
 
     public function setUrl($url) {
         $this->url = $url;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
     }
 }
