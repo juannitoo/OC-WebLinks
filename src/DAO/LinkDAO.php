@@ -4,10 +4,19 @@ namespace WebLinks\DAO;
 
 use WebLinks\Domain\Link;
 
-use WebLinks\DAO\UserDAO;
+//use WebLinks\DAO\UserDAO;
 
 class LinkDAO extends DAO
 {   
+    /**
+     * @var \WebLinks\DAO\UserDAO
+     */
+    private $userDAO;
+
+    public function setUserDAO(UserDAO $userDAO) {
+        $this->userDAO = $userDAO;
+    }
+
     /**
      * Returns a list of all links, sorted by id.
      *
@@ -23,6 +32,7 @@ class LinkDAO extends DAO
             $id = $row['link_id'];            
             $entities[$id] = $this->buildDomainObject($row);
         }
+
         return $entities;
     }
 
@@ -50,8 +60,8 @@ class LinkDAO extends DAO
         $link->setId($row['link_id']);
         $link->setTitle($row['link_title']);
         $link->setUrl($row['link_url']);
-        $userId = $row['user_id'];
-        $link->setName(self::findAuthorName($userId));
+        $link->setName(self::findAuthorName($row['user_id']));
+
         return $link;
     }
 }

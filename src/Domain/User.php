@@ -2,7 +2,9 @@
 
 namespace WebLinks\Domain;
 
-class User 
+use Symfony\Component\Security\Core\User\UserInterface;
+
+class User implements UserInterface
 {
     /**
      * User id.
@@ -16,7 +18,7 @@ class User
      *
      * @var string
      */
-    private $name;
+    private $username;
 
     /**
      * User password.
@@ -35,7 +37,7 @@ class User
     /**
      * User role.
      *
-     * @var string
+     * Values : ROLE_USER or ROLE_ADMIN.
      */
     private $role;
 
@@ -54,14 +56,21 @@ class User
         $this->id = $id;
     }
 
-    public function getName() {
-        return $this->name;
+   /**
+     * @inheritDoc obligé héritage interface sécurité
+     */
+    public function getUsername() {
+        return $this->username;
     }
 
-    public function setName($name) {
-        $this->name = $name;
+    public function setUsername($username) {
+        $this->username = $username;
+        return $this;
     }
 
+    /**
+     * @inheritDoc obligé héritage interface sécurité
+     */
     public function getPassword() {
         return $this->password;
     }
@@ -70,6 +79,9 @@ class User
         $this->password = $password;
     }
 
+    /**
+     * @inheritDoc obligé héritage interface sécurité
+     */
     public function getSalt() {
         return $this->salt;
     }
@@ -84,6 +96,22 @@ class User
 
     public function setRole($role) {
         $this->role = $role;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        return array($this->getRole());
+    }
+
+    /** 
+     * @inheritDoc
+     */
+    public function eraseCredentials() {
+        // Nothing to do here
     }
 
     public function getLink() {
